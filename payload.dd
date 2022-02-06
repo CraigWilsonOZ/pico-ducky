@@ -1,6 +1,8 @@
-REM The next four lines open Notepad in Windows and type "Hello World!"
+REM Echo Hello World! and start msinfo32.exe
 GUI r
-STRING notepad
+STRING cmd
 ENTER
 DELAY 250
-STRING Hello World!
+STRING echo Hello World!
+DELAY 250
+STRING msinfo32.exe
