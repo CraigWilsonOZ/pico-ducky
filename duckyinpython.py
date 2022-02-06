@@ -112,6 +112,11 @@ progStatusPin.switch_to_input(pull=digitalio.Pull.UP)
 progStatus = not progStatusPin.value
 defaultDelay = 0
 
+# Define button
+btn_attack = digitalio.DigitalInOut(board.GP18)
+btn_attack.direction = digitalio.Direction.INPUT
+btn_attack.pull = digitalio.Pull.DOWN
+
 def runScript(file):
     global defaultDelay
 
@@ -131,11 +136,15 @@ def runScript(file):
             previousLine = line
         time.sleep(float(defaultDelay)/1000)
 
-if(progStatus == False):
-    # not in setup mode, inject the payload
-    print("Running payload.dd")
-    runScript("payload.dd")
 
-    print("Done")
-else:
-    print("Update your payload")
+print("Running press button to fire attack")
+while True:
+    if btn_attack.value:
+        if(progStatus == False):
+            # not in setup mode, inject the payload
+            print("Running payload.dd")
+            runScript("payload.dd")
+    
+            print("Done")
+        else:
+            print("Update your payload")
